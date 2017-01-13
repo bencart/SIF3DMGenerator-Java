@@ -88,4 +88,16 @@
             </plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>adsbsv.ads.det.wa.edu.au-releases</name>
+            <url>https://adsdev.ads.det.wa.edu.au/artifactory/ext-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>adsbsv.ads.det.wa.edu.au-snapshots</name>
+            <url>https://adsdev.ads.det.wa.edu.au/artifactory/ext-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
