@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>sifau-datamodel</artifactId>
+	<packaging>jar</packaging>
+	<name>SIF AU Data Model Generator (1.3)</name>
+	<version>au-1.3</version>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>manual</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<parent>
+		<groupId>sif3.datamodel</groupId>
+		<artifactId>datamodel-generator</artifactId>
+		<version>1.0</version>
+		<relativePath>../</relativePath>
+	</parent>	
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <sif.dd.package>sif.dd.au30.model</sif.dd.package>
+    </properties>
+
+    <dependencies>
+    	<dependency>
+    		<groupId>sif3.framework</groupId>
+    		<artifactId>sif3-infra-rest</artifactId>
+    	</dependency>
+    </dependencies>
+    <build>
+    	<plugins>
+    		<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+    		</plugin>
+    	</plugins>
+    </build>
+</project>

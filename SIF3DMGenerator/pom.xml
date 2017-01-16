@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>sif3.datamodel</groupId>
-	<artifactId>sifau-datamodel</artifactId>
-	<packaging>jar</packaging>
+	<artifactId>datamodel-generator</artifactId>
+	<packaging>pom</packaging>
 	<name>Data Model generator</name>
-	<version>au-3.4-nap-v3</version>
+	<version>1.0</version>
 
 	<licenses>
 		<license>
@@ -16,76 +16,72 @@
 		</license>
 	</licenses>
 
+	<modules>
+		<module>sifau-1.3</module>
+		<module>sifau-1.4</module>
+		<module>sifau-3.4</module>
+		<module>sifus-3.2</module>
+		<module>sifus-3.3</module>
+	</modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <sif.dd.xsd></sif.dd.xsd>
     </properties>
 
-    <dependencies>
-    	<dependency>
-    		<groupId>sif3.framework</groupId>
-    		<artifactId>sif3-infra-rest</artifactId>
-    		<version>0.10.0-beta</version>
-    	</dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+	    	<dependency>
+	    		<groupId>sif3.framework</groupId>
+	    		<artifactId>sif3-infra-rest</artifactId>
+	    		<version>0.10.0-beta</version>
+	    	</dependency>
+	    </dependencies>
+	</dependencyManagement>
 
 	<build>
-		<plugins>
- 			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>${basedir}/src/main/java/</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-							<excludes>
-								<exclude>**/DataModelMarshalFactory.java</exclude>
-								<exclude>**/DataModelUnmarshalFactory.java</exclude>
-							</excludes>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<exclude>XSD/**</exclude>
-						<exclude>**/*.xjb</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <id>xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                	<outputDirectory>target/generated-sources</outputDirectory>
-                	<extension>true</extension>
-                	<packageName>sif.dd.au30.model</packageName>
-                	<noGeneratedHeaderComments>true</noGeneratedHeaderComments>
-                	<noPackageLevelAnnotations>true</noPackageLevelAnnotations>
-                    <xjbSources>
-                        <xjbSource>src/main/resources/auCustom.xjb</xjbSource>
-                    </xjbSources>
-                    <sources>
-                        <source>src/main/resources/XSD/sifau30/au3.4-nap/SIF_Message.xsd</source>
-                    </sources>
-                </configuration>
-            </plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<excludes>
+							<exclude>xsd/**</exclude>
+							<exclude>xjb/**</exclude>
+						</excludes>
+					</configuration>
+				</plugin>
+	            <plugin>
+	                <groupId>org.codehaus.mojo</groupId>
+	                <artifactId>jaxb2-maven-plugin</artifactId>
+	                <version>2.2</version>
+	                <executions>
+	                    <execution>
+	                        <id>xjc</id>
+	                        <goals>
+	                            <goal>xjc</goal>
+	                        </goals>
+	                    </execution>
+	                </executions>
+	                <configuration>
+	                	<outputDirectory>target/generated-sources</outputDirectory>
+	                	<extension>true</extension>
+	                	<packageName>${sif.dd.package}</packageName>
+	                	<noGeneratedHeaderComments>true</noGeneratedHeaderComments>
+	                	<noPackageLevelAnnotations>true</noPackageLevelAnnotations>
+	                    <xjbSources>
+	                        <xjbSource>src/main/resources/xjb/</xjbSource>
+	                    </xjbSources>
+	                    <sources>
+	                        <source>src/main/resources/xsd/${sif.dd.xsd}</source>
+	                    </sources>
+	                </configuration>
+	            </plugin>
+			</plugins>
+	    </pluginManagement>
 	</build>
 </project>
